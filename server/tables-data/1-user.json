@@ -1,0 +1,10 @@
+{
+    "table_name" : "user",
+    "columns" : [
+        {"col_name": "user_id", "type": "INT" , "AUTO_INCREMENT": true , "PRIMARY_KEY": true, "UNIQUE":true, "NOT_NULL":true, "FOREIGN_KEY": false},
+        {"col_name": "first_name", "type": "VARCHAR(20)" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": false, "NOT_NULL": true, "FOREIGN_KEY": false},
+        {"col_name": "last_name", "type": "VARCHAR(20)" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": false, "NOT_NULL": true, "FOREIGN_KEY": false},
+        {"col_name": "email", "type": "VARCHAR(30)" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": true, "NOT_NULL": true, "FOREIGN_KEY": false},
+        {"col_name": "phone", "type": "VARCHAR(25)" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": true, "NOT_NULL": true, "FOREIGN_KEY": false}  
+      ]
+}
