@@ -1,21 +1,23 @@
 import { useEffect, useState } from "react";
+import Header from "./Header.js";
 // var path = require('path');
 
 // app.use(express.static(path.join(__dirname, 'public')));
 
-export function Home(props) {
-    const [userName, setUserName] = useState([]);
+export function Home() {
+    const [username, setUsername] = useState([]);
 
-    // useEffect(() => {
-    //     setUserName(props.userName)
-    // }, [props.userName])
+    useEffect(() => {
+        const userData = JSON.parse(localStorage.getItem("currentUser"))
+        setUsername(userData.username)
+    }, [])
 
-    // console.log(path)
+    console.log(window.location.pathname)
 
     return (
         <>
-            {/* <Header id={props.id} /> */}
-            <h1 className=''> Hello {userName}</h1>
+            <Header />
+            <h1 className=''> Hello {username}</h1>
             <h3 className='home'>Welcome to your profile</h3>
             <hr/>
         </>

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { NavLink, useNavigate } from "react-router-dom";
-import { AppContext } from '../App';
+import { AppContext } from '../App.js';
 import '../styles/login.css'
 
 export default function Login() {
@@ -21,21 +21,22 @@ export default function Login() {
     async function sendReq(e) {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:4000/login/`, {
+            const response = await fetch(`http://localhost:4000/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username: username, password: password })
             })
-            const data = await response.json();
 
-            console.log("data:     ", data)
-            if (data.length === 0) {
+            const data = await response.json();
+            console.log(data);
+            if (!data) {
                 setFlag(true)
                 return
             }
             else {
+                localStorage.setItem('currentUser', JSON.stringify({"username":username, id: data}))
                 setName(username)
-                navigate(`../user/${data[0].user_id}/home`);
+                navigate(`../users/${data}/home`);
             }
         }
         catch (error) {

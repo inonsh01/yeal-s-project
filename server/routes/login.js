@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
+
 var mysql = require('mysql');
-
-
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -10,15 +9,27 @@ var con = mysql.createConnection({
     database: "projectDB"
 });
 
-router.post('/', function (req, res, next) {
-    con.connect(function (err) {
-        if (err) throw err;
-        con.query(`SELECT user_id FROM password WHERE username='${req.body.username}' AND password='${req.body.password}'`, function (err, result, fields) {
-            if (err) throw err;
-            console.table(result)
-            res.json(result);
-        });
-    });
+router.get('/', function (req, res, next) {
+    res.render('index', { title: 'Express' });
 });
 
+function ifExist(req, res) {
+    let user = req.body;
+    con.connect(function (err) {
+        var sql = `SELECT user_id FROM password WHERE username = '${user.username}' AND password = '${user.password}'`;
+
+        con.query(sql, function (err, result) {
+            if (!result[0]) {
+                res.send(false);
+                return;
+            }
+            if (err) { res.send(err.sqlMessage); return; };
+            res.send(JSON.stringify(result[0].user_id));
+        });
+    });
+};
+
+router.post('/', function (req, res, next) {
+    ifExist(req, res);
+});
 module.exports = router;

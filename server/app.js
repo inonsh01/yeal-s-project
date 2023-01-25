@@ -1,32 +1,35 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require('cors');
-var app = express();
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
+let logger = require('morgan');
+let cors = require('cors');
 
-app.use(cors())
-
-var mysql = require('mysql');
-var con = mysql.createConnection({
+let mysql = require('mysql');
+let con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "inonsh01",
     database: "projectDB"
 });
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var userRouter = require('./routes/mysql-user');
-var todoRouter = require('./routes/mysql-todo');
-var postRouter = require('./routes/mysql-post');
-var passwordRouter = require('./routes/mysql-password');
-var commentRouter = require('./routes/mysql-comment');
-var todosRouter = require('./routes/todos');
-var postsRouter = require('./routes/posts');
-var commentsRouter = require('./routes/comments');
-var loginRouter = require('./routes/login');
+let indexRouter = require('./routes/index');
+let usersRouter = require('./routes/users');
+let userRouter = require('./routes/mysql-user');
+let todoRouter = require('./routes/mysql-todo');
+let postRouter = require('./routes/mysql-post');
+let passwordRouter = require('./routes/mysql-password');
+let commentRouter = require('./routes/mysql-comment');
+let todosRouter = require('./routes/todos');
+let postsRouter = require('./routes/posts');
+let commentsRouter = require('./routes/comments');
+let loginRouter = require('./routes/login');
+let infoRouter = require('./routes/info');
+// const { default: App } = require('../client/src/App');
 
+
+let app = express();
+
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -35,23 +38,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use(function (req, res, next) {
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-	next()
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next()
 });
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/user', userRouter);
-app.use('/todo', todoRouter);
-app.use('/post', postRouter);
-app.use('/password', passwordRouter);
-app.use('/comment', commentRouter);
+app.use('/login', loginRouter);
+app.use('/users/:id/info', infoRouter);
+// app.use('/user', userRouter);
+// app.use('/todo', todoRouter);
+// app.use('/post', postRouter);
+// app.use('/password', passwordRouter);
+// app.use('/comment', commentRouter);
 // app.use('/users', usersRouter);
 // app.use('/todos', todosRouter);
 // app.use('/posts', postsRouter);
 // app.use('/comments', commentsRouter);
-app.use('/login', loginRouter);
 
 app.get(
     ['/users', '/todos', '/posts', '/comments'],
@@ -77,7 +80,7 @@ module.exports = app;
 
 function sendData(req, res) {
     let tableName = req.path.split("/")[1].slice(0, -1);
-    var sql = `SELECT * from ${tableName}`;
+    let sql = `SELECT * from ${tableName}`;
 
     // con.connect(function (err) {
         con.query(sql, function (err, result) {
@@ -97,7 +100,7 @@ function addToTable(req, res) {
         arrColumnsName.push(detail);
         arrDataInColumn.push(req.body[detail]);
     }
-    var sql = `INSERT INTO ${tableName} (${arrColumnsName.toString()}) VALUES ?`;
+    let sql = `INSERT INTO ${tableName} (${arrColumnsName.toString()}) VALUES ?`;
 
     // con.connect(function (err) {
         con.query(sql, [[arrDataInColumn]], function (err, result) {
@@ -112,7 +115,7 @@ function addToTable(req, res) {
 function updateInTable(req, res) {
     let tableName = req.path.split("/")[1].slice(0, -1);
     console.log(req.params);
-    var sql = `UPDATE ${tableName} SET ? WHERE id = ${req.params.userId}`;
+    let sql = `UPDATE ${tableName} SET ? WHERE id = ${req.params.userId}`;
     console.log(sql);
     con.query(sql, req.body, function (err, result) {
         if (err) throw err;
@@ -125,9 +128,9 @@ function updateInTable(req, res) {
 function deleteInTable(req, res) {
     let tableName = req.path.split("/")[1].slice(0, -1);
 
-    var sql = `UPDATE ${tableName} SET ${req.body.field} = NULL WHERE id = ${req.params.userId}`;
+    let sql = `UPDATE ${tableName} SET ${req.body.field} = NULL WHERE id = ${req.params.userId}`;
     con.query(sql, req.body, function (err, result) {
-      if (err) throw err;
-      sendData(req, res);
+        if (err) throw err;
+        sendData(req, res);
     });
 }

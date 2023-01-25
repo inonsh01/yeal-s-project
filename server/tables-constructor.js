@@ -2,11 +2,11 @@ var mysql = require('mysql');
 let fs = require('fs');
 let dir = fs.readdirSync('./tables-data')
 
-// // create the database "projectDB"
+// create the database "projectDB"
 // var con = mysql.createConnection({
 //     host: "localhost",
 //     user: "root",
-//     password: "z10mz10m"
+//     password: "inonsh01"
 //   });
 //   con.connect(function(err) {
 //     if (err) throw err;
@@ -31,7 +31,7 @@ let dir = fs.readdirSync('./tables-data')
 // var con = mysql.createConnection({
 //     host: "localhost",
 //     user: "root",
-//     password: "z10mz10m",
+//     password: "inonsh01",
 //     database: "projectDB"
 // });
 
