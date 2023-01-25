@@ -16,10 +16,15 @@ router.get('/', function (req, res, next) {
 function ifExist(req, res) {
     let user = req.body;
     con.connect(function (err) {
-        var sql = `SELECT id FROM user WHERE username = ${user.name} AND password = ${user.password}`;
+        var sql = `SELECT user_id FROM password WHERE username = '${user.username}' AND password = '${user.password}'`;
         con.query(sql, function (err, result) {
-            if (err) {res.send(err.sqlMessage); return;};
-            res.send(true);
+            console.log(result);
+            if (!result[0]) {
+                res.send(false);
+                return;
+            }
+            if (err) { res.send(err.sqlMessage); return; };
+            res.send(JSON.stringify(result[0].user_id));
         });
     });
 };

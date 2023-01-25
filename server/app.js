@@ -3,6 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
+
 var mysql = require('mysql');
 var con = mysql.createConnection({
     host: "localhost",
@@ -13,6 +14,11 @@ var con = mysql.createConnection({
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var userRouter = require('./routes/mysql-user');
+var todoRouter = require('./routes/mysql-todo');
+var postRouter = require('./routes/mysql-post');
+var passwordRouter = require('./routes/mysql-password');
+var commentRouter = require('./routes/mysql-comment');
 var todosRouter = require('./routes/todos');
 var postsRouter = require('./routes/posts');
 var commentsRouter = require('./routes/comments');
@@ -28,8 +34,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next()
+});
+
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
+// app.use('/user', userRouter);
+// app.use('/todo', todoRouter);
+// app.use('/post', postRouter);
+// app.use('/password', passwordRouter);
+// app.use('/comment', commentRouter);
 // app.use('/users', usersRouter);
 // app.use('/todos', todosRouter);
 // app.use('/posts', postsRouter);
@@ -109,7 +127,7 @@ function deleteInTable(req, res) {
 
     var sql = `UPDATE ${tableName} SET ${req.body.field} = NULL WHERE id = ${req.params.userId}`;
     con.query(sql, req.body, function (err, result) {
-      if (err) throw err;
-      sendData(req, res);
+        if (err) throw err;
+        sendData(req, res);
     });
 }

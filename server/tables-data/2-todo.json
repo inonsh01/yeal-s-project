@@ -1,0 +1,9 @@
+{
+    "table_name" : "todo",
+    "columns" : [
+        {"col_name": "tood_id", "type": "INT" , "AUTO_INCREMENT": true , "PRIMARY_KEY": true, "UNIQUE": true, "NOT_NULL": true, "FOREIGN_KEY": false},
+        {"col_name": "title", "type": "VARCHAR(100)" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": false, "NOT_NULL": true, "FOREIGN_KEY": false},
+        {"col_name": "complited", "type": "BOOLEAN" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE": false, "NOT_NULL": true, "FOREIGN_KEY": false},
+        {"col_name": "user_id", "type": "INT" , "AUTO_INCREMENT": false , "PRIMARY_KEY": false, "UNIQUE":false, "NOT_NULL":true, "FOREIGN_KEY": "user"}
+    ]
+ }

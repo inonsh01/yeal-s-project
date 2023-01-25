@@ -1,44 +1,34 @@
-import React, { useContext, useState } from 'react'
+import react, { useState } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
-import { AppContext } from '../App';
-import '../styles/login.css'
 
-export default function Login() {
-    const { username, setUsername } = useContext(AppContext);
-    const [name, setName] = useState("");
-    const [password, setPassword] = useState("");
+const Register = () => {
     const navigate = useNavigate();
-
-    if (localStorage.getItem('currentUser', username)) {
-        localStorage.removeItem('currentUser', username)
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+    const user = {
+        username: username,
+        password: password
     }
+    const sendReq = async (e) => {
+        e.preventDefault()
 
-    function sendReq(e) {
-        e.preventDefault();
-        const user = {
-            name: name,
-            password: password
-        }
-        fetch("http://localhost:4000/login", {
+        fetch('http://localhost:4000/users', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'content-type': 'application/json' },
             body: JSON.stringify(user)
         })
             .then(response => response.text())
             .then(data => {
-                console.log(data);
-                if (data === "false") {
-                    alert("your username or password are incorrect");
-                    window.location.reload();
-                }
-                else {
-
-                    setUsername(name);
-                    localStorage.setItem('currentUser', name);
-                    navigate(`/${name}`);
+                if (data === "User already exists") {
+                    alert(data)
+                } else {
+                    alert("You registered successfully");
+                    navigate("/login");
                 }
             })
+            .catch(err => console.log(err))
     }
+
     return (
         <div className="container">
             <div className="screen">
@@ -46,19 +36,18 @@ export default function Login() {
                     <form className="login" onSubmit={(e) => sendReq(e)}>
                         <div className="login__field">
                             <i className="login__icon fas fa-user"></i>
-                            <input onChange={(e) => setName(e.target.value)} value={name} type="text" className="login__input" placeholder="User name" minLength={4} maxLength={16} required />
+                            <input onChange={(e) => setUsername(e.target.value)} value={username} type="text" className="login__input" placeholder="Username" minLength={4} maxLength={16} required />
                         </div>
                         <div className="login__field">
                             <i className="login__icon fas fa-lock"></i>
                             <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" className="login__input" placeholder="Password" minLength={4} maxLength={16} required />
                         </div>
                         <button type='submit' className="button login__submit">
-                            <span className="button__text">Log In Now</span>
+                            <span className="button__text">register</span>
                             <i className="button__icon fas fa-chevron-right"></i>
                         </button>
-
                     </form>
-                    <p className='log-in-btn'>Don't have an account? <NavLink className="log-in-link" to={"./register"}>Register</NavLink></p>
+                    <p className='log-in-btn'>Have an account? <NavLink className="log-in-link" to={"../"}>Log in</NavLink></p>
                 </div>
                 <div className="screen__background">
                     <span className="screen__background__shape screen__background__shape4"></span>
@@ -70,3 +59,5 @@ export default function Login() {
         </div>
     )
 }
+
+export default Register
