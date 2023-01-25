@@ -8,7 +8,7 @@ export default function Login() {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    
+
     if (localStorage.getItem('currentUser', username)) {
         localStorage.removeItem('currentUser', username)
     }
@@ -19,18 +19,20 @@ export default function Login() {
             name: name,
             password: password
         }
-        fetch("http://localhost:4000/", {
+        fetch("http://localhost:4000/login", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(user)
         })
             .then(response => response.text())
             .then(data => {
+                console.log(data);
                 if (data === "false") {
                     alert("your username or password are incorrect");
                     window.location.reload();
                 }
                 else {
+
                     setUsername(name);
                     localStorage.setItem('currentUser', name);
                     navigate(`/${name}`);
