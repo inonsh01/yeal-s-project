@@ -79,12 +79,12 @@ function sendData(req, res) {
     let tableName = req.path.split("/")[1].slice(0, -1);
     var sql = `SELECT * from ${tableName}`;
 
-    con.connect(function (err) {
+    // con.connect(function (err) {
         con.query(sql, function (err, result) {
             if (err) res.send(err.sqlMessage);
             res.send(result);
         });
-    });
+    // });
 }
 
 //req body example
@@ -99,12 +99,12 @@ function addToTable(req, res) {
     }
     var sql = `INSERT INTO ${tableName} (${arrColumnsName.toString()}) VALUES ?`;
 
-    con.connect(function (err) {
+    // con.connect(function (err) {
         con.query(sql, [[arrDataInColumn]], function (err, result) {
             if (err) { res.send(err.sqlMessage); throw err; };
             sendData(req, res)
         });
-    });
+    // });
 }
 
 //req body example

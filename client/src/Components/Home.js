@@ -10,7 +10,6 @@ export function Home(props) {
     //     setUserName(props.userName)
     // }, [props.userName])
 
-    console.log("hiiiiiiiiiiiiiiiiiiii")
     // console.log(path)
 
     return (

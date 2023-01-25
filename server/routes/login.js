@@ -10,10 +10,10 @@ var con = mysql.createConnection({
     database: "projectDB"
 });
 
-router.post('/:username', function (req, res, next) {
+router.post('/', function (req, res, next) {
     con.connect(function (err) {
         if (err) throw err;
-        con.query(`SELECT username, password, user_id FROM password WHERE username='${req.body.username}' AND password='${req.body.password}'`, function (err, result, fields) {
+        con.query(`SELECT user_id FROM password WHERE username='${req.body.username}' AND password='${req.body.password}'`, function (err, result, fields) {
             if (err) throw err;
             console.table(result)
             res.json(result);

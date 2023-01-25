@@ -21,7 +21,7 @@ export default function Login() {
     async function sendReq(e) {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:4000/login/${username}`, {
+            const response = await fetch(`http://localhost:4000/login/`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username: username, password: password })
@@ -42,35 +42,6 @@ export default function Login() {
             console.log('error: ', error)
         }
     }
-
-    //
-    // fetch('http://localhost:4000/user', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({data: users})
-    // })
-    //
-    //     const response = await fetch(`https://jsonplaceholder.typicode.com/users?username=${username}`)
-    //     const data = await response.json();
-    //     const item = (data[0])
-
-    //     if (!item) { //username incorrect
-    //         setFlag(true)
-    //         return
-    //     }
-    //     let notPassword = item.address.geo.lat
-    //     let tempPassword = notPassword.slice(-4)
-
-    //     if (tempPassword === password) {
-    //         localStorage.setItem('currentUser', JSON.stringify(item));
-    //         props.setUserId(item.id);
-    //         navigate(`user/${item.id}/home`, { state: username });
-    //     }
-    //     else { //password incorrect
-    //         setFlag(true)
-    //     }
-    // }
-    //
 
     return (
         <div className="container">
