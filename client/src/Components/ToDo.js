@@ -17,11 +17,7 @@ function ToDo() {
 
     async function sendReq() {
         try {
-            const response = await fetch(`http://localhost:4000/users/:id/todo`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: userData.id })
-            })
+            const response = await fetch(`http://localhost:4000/users/${userData.id}/todo`);
             const data = await response.json();
             setUserToDo(data)
         }

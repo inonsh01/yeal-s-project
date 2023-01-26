@@ -27,7 +27,7 @@ export default function App() {
           <Route path="/users/:id/todo" element={<ToDo />}></Route>
           <Route path="/users/:id/info" element={<Info />}></Route>
           <Route path="/users/:id/logout" element={<Logout />}></Route>
-          {/* <Route path="posts" element={<Posts />}></Route> */}
+          <Route path="/users/:id/posts" element={<Posts />}></Route>
           {/* <Route path="posts/:id" element={<Post />}></Route> */}
 
           <Route path="*" element={<h1>404 Not found</h1>}></Route>

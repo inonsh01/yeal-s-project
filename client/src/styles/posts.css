@@ -1,0 +1,26 @@
+.posts {
+    display: flex;
+    align-content: space-around;
+    flex-wrap: nowrap;
+}
+
+.div-list {
+    width: 100%;
+    
+}
+
+.post-ul {
+    min-height: 45vh;
+    width: 70%;
+    padding-left: 3%;
+    padding-right: 10%;
+    background-color: rgb(196, 196, 196);
+}
+
+.post-li {
+    list-style: none;
+}
+
+#title {
+    font-weight: bold;
+}
