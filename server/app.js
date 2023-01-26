@@ -8,19 +8,20 @@ let mysql = require('mysql');
 let con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "inonsh01",
+    password: "z10mz10m",
     database: "projectDB"
 });
 
-let indexRouter = require('./routes/index');
-let postsRouter = require('./routes/posts');
+//mysql:
 let userRouter = require('./routes/mysql-user');
 let todoRouter = require('./routes/mysql-todo');
 let postRouter = require('./routes/mysql-post');
 let passwordRouter = require('./routes/mysql-password');
 let commentRouter = require('./routes/mysql-comment');
-let todosRouter = require('./routes/todos');
+
+let indexRouter = require('./routes/index');
 let postsRouter = require('./routes/posts');
+let todosRouter = require('./routes/todos');
 let commentsRouter = require('./routes/comments');
 let loginRouter = require('./routes/login');
 let infoRouter = require('./routes/info');
@@ -47,13 +48,15 @@ app.use('/login', loginRouter);
 app.use('/users/:id/info', infoRouter);
 app.use('/users', todosRouter);
 app.use('/users', postsRouter);
-app.use('/user', userRouter);
+// app.use('/user', userRouter);
 
-// app.use('/todo', todoRouter);
-// app.use('/password', passwordRouter);
-// app.use('/comment', commentRouter);
-// app.use('/users', usersRouter);
-// app.use('/posts', postsRouter);
+
+//mysql:
+app.use('/todo', todoRouter);
+app.use('/password', passwordRouter);
+app.use('/comment', commentRouter);
+app.use('/user', userRouter);
+app.use('/post', postRouter);
 // app.use('/comments', commentsRouter);
 
 app.get(
