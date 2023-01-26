@@ -20,7 +20,7 @@ router.get('/:id/posts', function (req, res) {
 
 router.get('/:userId/posts/:postId', function (req, res) {
     console.log(req.params);
-    var sql = `SELECT * FROM comment WHERE post_id = ${req.params.postId}`
+    var sql = `SELECT comment_title, comment_body, first_name, last_name FROM comment LEFT JOIN user ON comment.user_id = user.user_id WHERE post_id = ${req.params.postId}`
     console.log(sql);
     con.query(sql, function (err, result) {
         console.log(result);

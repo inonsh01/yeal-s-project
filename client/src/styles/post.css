@@ -1,3 +1,17 @@
-.comment-li{
+.comment-li {
     list-style: none;
+}
+
+.div-list {
+    position: relative;
+}
+
+#fa-edit {
+    background-size: cover;
+}
+
+#fa-remove {
+    position: absolute;
+    top: 0;
+    left:0;
 }

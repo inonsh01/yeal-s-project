@@ -56,7 +56,7 @@ export default function Posts() {
             <div className='posts'>{
                 allPosts &&
                 allPosts.map(el =>
-                    <Post userData={userData} postDet={el} />
+                    <Post setAllPOsts = {setAllPOsts} userData={userData} postDet={el} />
                 )
             }</div>
         </div>
