@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Header from './Header.js';
 import Post from './Post.js';
 import '../styles/posts.css';
 
@@ -30,7 +31,7 @@ export default function Posts() {
                 {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ post_title: title, post_body: body, user_id: userData.id })
+                    body: JSON.stringify({ post_title: title, post_body: body, user_id: userData.id, deleted: 0 })
                 });
             const data = await response.json();
             setAllPOsts(data);
@@ -41,6 +42,7 @@ export default function Posts() {
     }
     return (
         <div>
+                  <Header /><br/>
             <h1>All My Posts</h1>
             <br></br>
             <button onClick={()=>setForm(!form)}><h4>Add Post</h4></button>

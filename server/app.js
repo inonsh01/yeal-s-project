@@ -12,8 +12,7 @@ let con = mysql.createConnection({
     database: "projectDB"
 });
 
-let indexRouter = require('./routes/index');
-let postsRouter = require('./routes/posts');
+//mysql:
 let userRouter = require('./routes/mysql-user');
 let todoRouter = require('./routes/mysql-todo');
 let postRouter = require('./routes/mysql-post');
@@ -23,6 +22,7 @@ let todosRouter = require('./routes/todos');
 let commentsRouter = require('./routes/comments');
 let loginRouter = require('./routes/login');
 let infoRouter = require('./routes/info');
+let postsRouter = require('./routes/posts');
 // const { default: App } = require('../client/src/App');
 
 
@@ -41,13 +41,15 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next()
 });
-app.use('/', indexRouter);
+// app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/users/:id/info', infoRouter);
 app.use('/users', todosRouter);
 app.use('/users', postsRouter);
-app.use('/user', userRouter);
+// app.use('/user', userRouter);
 
+
+//mysql:
 app.use('/todo', todoRouter);
 app.use('/password', passwordRouter);
 app.use('/comment', commentRouter);

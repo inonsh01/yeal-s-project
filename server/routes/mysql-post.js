@@ -12,7 +12,7 @@ var con = mysql.createConnection({
 router.post('/', function (req, res, next) {
     con.connect(function (err) {
         if (err) throw err;
-        var sql = "INSERT INTO post (post_title, post_body,  deleted, user_id) VALUES ?";
+        var sql = "INSERT INTO post (post_title, post_body, deleted, user_id) VALUES ?";
             var values = [req.body.data];
             con.query(sql, values, function (err, result) {
                 if (err) throw err;
