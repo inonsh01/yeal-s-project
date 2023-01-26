@@ -13,7 +13,7 @@ let con = mysql.createConnection({
 });
 
 let indexRouter = require('./routes/index');
-let usersRouter = require('./routes/users');
+let postsRouter = require('./routes/posts');
 let userRouter = require('./routes/mysql-user');
 let todoRouter = require('./routes/mysql-todo');
 let postRouter = require('./routes/mysql-post');
@@ -46,8 +46,8 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/users/:id/info', infoRouter);
 app.use('/users', todosRouter);
+app.use('/users', postsRouter);
 app.use('/user', userRouter);
-app.use('/users', usersRouter);
 
 // app.use('/todo', todoRouter);
 // app.use('/password', passwordRouter);
