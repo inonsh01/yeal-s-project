@@ -42,14 +42,14 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next()
 });
-
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/users/:id/info', infoRouter);
 app.use('/users/:id/todo', todosRouter);
+app.use('/users', usersRouter);
+
 // app.use('/user', userRouter);
 // app.use('/todo', todoRouter);
-// app.use('/post', postRouter);
 // app.use('/password', passwordRouter);
 // app.use('/comment', commentRouter);
 // app.use('/users', usersRouter);
@@ -83,10 +83,10 @@ function sendData(req, res) {
     let sql = `SELECT * from ${tableName}`;
 
     // con.connect(function (err) {
-        con.query(sql, function (err, result) {
-            if (err) res.send(err.sqlMessage);
-            res.send(result);
-        });
+    con.query(sql, function (err, result) {
+        if (err) res.send(err.sqlMessage);
+        res.send(result);
+    });
     // });
 }
 
@@ -103,10 +103,10 @@ function addToTable(req, res) {
     let sql = `INSERT INTO ${tableName} (${arrColumnsName.toString()}) VALUES ?`;
 
     // con.connect(function (err) {
-        con.query(sql, [[arrDataInColumn]], function (err, result) {
-            if (err) { res.send(err.sqlMessage); throw err; };
-            sendData(req, res)
-        });
+    con.query(sql, [[arrDataInColumn]], function (err, result) {
+        if (err) { res.send(err.sqlMessage); throw err; };
+        sendData(req, res)
+    });
     // });
 }
 

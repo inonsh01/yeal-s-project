@@ -4,7 +4,7 @@ import Header from './Header.js';
 function ToDo() {
     const userData = JSON.parse(localStorage.getItem("currentUser"))
     const [userToDo, setUserToDo] = useState("");
-    const [mapToDo, ]
+    // const [mapToDo, ]
     const refToDo = useRef('')
 
     useEffect(() => {
