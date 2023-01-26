@@ -1,7 +1,7 @@
 // import Register from "./Components/Register";
 import Login from './Components/Login.js';
 import Posts from "./Components/Posts.js";
-import Tasks from "./Components/Tasks.js";
+import ToDo from "./Components/ToDo.js";
 import Info from './Components/Info.js';
 import Home from "./Components/Home.js";
 import Post from "./Components/Post.js";
@@ -24,7 +24,7 @@ export default function App() {
           {/* <Route path="/register" element={<Register />}></Route> */}
 
           <Route path="/users/:id/home" element={<Home />}></Route>
-          {/* <Route path="tasks" element={<Tasks />}></Route> */}
+          <Route path="/users/:id/todo" element={<ToDo />}></Route>
           <Route path="/users/:id/info" element={<Info />}></Route>
           <Route path="/users/:id/logout" element={<Logout />}></Route>
           {/* <Route path="posts" element={<Posts />}></Route> */}

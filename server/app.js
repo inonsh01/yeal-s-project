@@ -46,13 +46,13 @@ app.use(function (req, res, next) {
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/users/:id/info', infoRouter);
+app.use('/users/:id/todo', todosRouter);
 // app.use('/user', userRouter);
 // app.use('/todo', todoRouter);
 // app.use('/post', postRouter);
 // app.use('/password', passwordRouter);
 // app.use('/comment', commentRouter);
 // app.use('/users', usersRouter);
-// app.use('/todos', todosRouter);
 // app.use('/posts', postsRouter);
 // app.use('/comments', commentsRouter);
 
