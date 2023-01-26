@@ -56,6 +56,17 @@ app.use('/users', usersRouter);
 // app.use('/posts', postsRouter);
 // app.use('/comments', commentsRouter);
 
+app.get('/users/:id/posts', function (req, res) {
+    let where = `WHERE user_id = ${req.params.id}`;
+    let tableNameOp = 'post';
+    sendData(req, res, where, tableNameOp)
+})
+app.post('/users/:id/posts', function (req, res) {
+    let tableNameOp = 'post';
+    let where = `WHERE user_id = ${req.params.id}`;
+    addToTable(req, res, where, tableNameOp)
+})
+
 app.get(
     ['/users', '/todos', '/posts', '/comments'],
     (req, res) => sendData(req, res)
@@ -78,45 +89,40 @@ app.delete(
 
 module.exports = app;
 
-function sendData(req, res) {
-    let tableName = req.path.split("/")[1].slice(0, -1);
-    let sql = `SELECT * from ${tableName}`;
-
-    // con.connect(function (err) {
+function sendData(req, res, were, tableNameOp) {
+    let tableName = tableNameOp ? tableNameOp :  req.path.split("/")[1].slice(0, -1);
+    let sql = `SELECT * from ${tableName} ${were}`;
     con.query(sql, function (err, result) {
         if (err) res.send(err.sqlMessage);
         res.send(result);
     });
-    // });
 }
 
 //req body example
 //{columnName: valueInColumn, ....}
-function addToTable(req, res) {
-    let tableName = req.path.split("/")[1].slice(0, -1);
+function addToTable(req, res,where, tableNameOp) {
+    let tableName = tableNameOp ? tableNameOp :  req.path.split("/")[1].slice(0, -1);
+    // let sql = `SELECT * from ${tableName} ${were}`;
+    //let tableName = req.path.split("/")[1].slice(0, -1);
     let arrColumnsName = [];
     let arrDataInColumn = [];
     for (let detail in req.body) {
         arrColumnsName.push(detail);
         arrDataInColumn.push(req.body[detail]);
     }
-    let sql = `INSERT INTO ${tableName} (${arrColumnsName.toString()}) VALUES ?`;
 
-    // con.connect(function (err) {
+    let sql = `INSERT INTO ${tableName} (${arrColumnsName.toString()}) VALUES ?`;
     con.query(sql, [[arrDataInColumn]], function (err, result) {
         if (err) { res.send(err.sqlMessage); throw err; };
-        sendData(req, res)
+        sendData(req, res, where, tableNameOp)
     });
-    // });
 }
 
 //req body example
 //{"id":"222", "name":"fucking assholeeee"}
 function updateInTable(req, res) {
     let tableName = req.path.split("/")[1].slice(0, -1);
-    console.log(req.params);
     let sql = `UPDATE ${tableName} SET ? WHERE id = ${req.params.userId}`;
-    console.log(sql);
     con.query(sql, req.body, function (err, result) {
         if (err) throw err;
         sendData(req, res);

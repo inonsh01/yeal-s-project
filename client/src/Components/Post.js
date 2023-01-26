@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import '../styles/post.css';
+import { FaEdit } from "react-icons/fa";
 
 export default function Post(props) {
     const [comments, setComments] = useState();
@@ -29,6 +30,7 @@ export default function Post(props) {
             <ul className='post-ul'>
                 <li id='title' className='post-li'>{postDetail.post_title}</li>
                 <li id='body' className='post-li'>{postDetail.post_body}</li>
+                <FaEdit/>
             </ul>
             <button onClick={() => getComments(postDetail.post_id)}>comments</button>
             <div>
