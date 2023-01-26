@@ -47,7 +47,7 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/users/:id/info', infoRouter);
 app.use('/users/:id/todo', todosRouter);
-// app.use('/user', userRouter);
+app.use('/user', userRouter);
 // app.use('/todo', todoRouter);
 // app.use('/post', postRouter);
 // app.use('/password', passwordRouter);

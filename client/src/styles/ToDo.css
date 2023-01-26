@@ -1,0 +1,44 @@
+ul{
+    display: flex;
+    flex-wrap: wrap;
+    /* flex: 0 0 33.333333%; */
+    justify-content: center;
+    gap: 25px;
+}
+
+.todo-li{
+    list-style: none;
+    padding: 30px;
+    padding-top: 20px;
+    border:2px solid black;
+    width: 200px;
+    height: 180px;
+    border-radius: 30px ;
+    background-color: rgb(245, 227, 180);
+    box-shadow: 3px 4px rgb(159, 142, 142);
+}
+
+li:has(input[type="checkbox"]:checked){
+    background-color:rgb(151, 236, 151);
+}
+
+.todo-button{
+    border-radius: 10px ;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    width: 130px;
+    height: 45px;
+    display: inline;
+    background-color: rgb(232, 187, 151);
+    color: black;
+}
+
+#todo-div{
+   font-weight: bold; 
+}
+
+.id-p{
+    text-align: center;
+    margin-bottom: 10px;
+}
